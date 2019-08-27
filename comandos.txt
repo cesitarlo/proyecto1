@@ -109,3 +109,25 @@ git pull origin master --allow-unrelated-histories
 # Por último, ahora sí podemos hacer git push para guardar
 # los cambios de nuestro repositorio local en GitHub:
 git push origin master
+
+*************************************************CREACIÓN DE LLAVES PUBLICAS Y PRIVADAS*****************************
+Primer paso: Generar tus llaves SSH. Recuerda que es muy buena idea proteger tu llave privada con una contraseña.
+
+ssh-keygen -t rsa -b 4096 -C "tu@email.com"
+Segundo paso: Terminar de configurar nuestro sistema.
+
+En Windows y Linux:
+
+# Encender el "servidor" de llaves SSH de tu computadora:
+eval $(ssh-agent -s)
+
+# Añadir tu llave SSH a este "servidor":
+ssh-add ruta-donde-guardaste-tu-llave-privada
+*******
+Luego de crear nuestras llaves SSH podemos entregarle la llave pública a GitHub para comunicarnos de forma segura y sin necesidad de escribir nuestro usuario y contraseña todo el tiempo.
+
+Para esto debes entrar a la Configuración de Llaves SSH en GitHub, crear una nueva llave con el nombre que le quieras dar y el contenido de la llave pública de tu computadora.
+
+Ahora podemos actualizar la URL que guardamos en nuestro repositorio remoto, solo que, en vez de guardar la URL con HTTPS, vamos a usar la URL con SSH:
+
+git remote set-url origin url-ssh-del-repositorio-en-github
